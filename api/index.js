@@ -13,6 +13,6 @@ mongoose
 
 const app = express();
 
-app.listen(3000, () => {
-  console.log("Server is running on port 300067");
+app.listen(2000, () => {
+  console.log("Server is running on port 3000t");
 });
