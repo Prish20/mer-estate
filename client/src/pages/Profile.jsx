@@ -4,6 +4,7 @@ import {
   updateUserStart,
   updateUserFailure,
   updateUserSuccess,
+  deleteUserSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 import {
@@ -34,7 +35,7 @@ export default function Profile() {
     if (file) {
       handleFileUpload(file);
     }
-  }, [file]);
+  });
 
   const handleFileUpload = async (file) => {
     const storage = getStorage(app);
@@ -82,6 +83,23 @@ export default function Profile() {
 
       dispatch(updateUserSuccess(data));
       setUpdateSuccess(true);
+    } catch (error) {
+      dispatch(updateUserFailure(error.message));
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    try {
+      dispatch(updateUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        dispatch(updateUserFailure(data.message));
+        return;
+      }
+      dispatch(deleteUserSuccess(data));
     } catch (error) {
       dispatch(updateUserFailure(error.message));
     }
@@ -148,7 +166,7 @@ export default function Profile() {
         </button>
       </form>
       <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete Account</span>
+        <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Delete Account</span>
         <span className="text-red-700 cursor-pointer">Sign Out</span>
       </div>
       <p className="text-red-700 mt-5">{error ? error : ""}</p>
