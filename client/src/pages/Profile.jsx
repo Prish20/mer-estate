@@ -281,7 +281,7 @@ export default function Profile() {
                 Delete
               </button>
               <button
-                className="text-green-700 
+              className="text-green-700 
               border rounded-lg 
               border-slate-500 text-sm p-1 font-semibold 
               hover:shadow-xl uppercase"
