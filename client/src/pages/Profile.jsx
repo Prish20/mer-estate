@@ -151,7 +151,9 @@ export default function Profile() {
         // Handle the error here
         return;
       }
-      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
+      setUserListings((prev) =>
+        prev.filter((listing) => listing._id !== listingId)
+      );
     } catch (error) {
       // Handle the error here
     }
@@ -249,47 +251,54 @@ export default function Profile() {
       </p>
       {userListings.length > 0 && (
         <div className="flex flex-col gap-4">
-          <h1 className="text-center mt-7 text-2xl 
-          font-semibold">Your Listings</h1>
-          {userListings.map((listing) => (
-          <div
-            key={listing._id}
-            className="border rounded-lg p-3 
-          justify-between items-center gap-4 flex"
+          <h1
+            className="text-center mt-7 text-2xl 
+          font-semibold"
           >
-            <Link to={`/listing/${listing._id}`}>
-              <img
-                src={listing.imageUrls[0]}
-                alt="listing cover"
-                className="h-16 w-16 object-contain"
-              />
-            </Link>
-            <Link
-              className="text-slate-700 flex-1 font-semibold 
-                 hover:underline truncate"
-              to={`/listing/${listing._id}`}
+            Your Listings
+          </h1>
+          {userListings.map((listing) => (
+            <div
+              key={listing._id}
+              className="border rounded-lg p-3 
+          justify-between items-center gap-4 flex"
             >
-              <p>{listing.name}</p>
-            </Link>
-            <div className="flex gap-2 flex-col items-center">
-              <button
-               onClick={()=>handleListingDelete(listing._id)} className="text-red-700 
+              <Link to={`/listing/${listing._id}`}>
+                <img
+                  src={listing.imageUrls[0]}
+                  alt="listing cover"
+                  className="h-16 w-16 object-contain"
+                />
+              </Link>
+              <Link
+                className="text-slate-700 flex-1 font-semibold 
+                 hover:underline truncate"
+                to={`/listing/${listing._id}`}
+              >
+                <p>{listing.name}</p>
+              </Link>
+              <div className="flex gap-2 flex-col items-center">
+                <button
+                  onClick={() => handleListingDelete(listing._id)}
+                  className="text-red-700 
               border rounded-lg 
               border-slate-500 text-sm p-1 font-semibold 
               hover:shadow-xl uppercase"
-              >
-                Delete
-              </button>
-              <button
-              className="text-green-700 
+                >
+                  Delete
+                </button>
+                <Link to={`/update-listing/${listing._id}`}>
+                  <button
+                    className="text-green-700 
               border rounded-lg 
               border-slate-500 text-sm p-1 font-semibold 
               hover:shadow-xl uppercase"
-              >
-                Edit
-              </button>
+                  >
+                    Edit
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
           ))}
         </div>
       )}
